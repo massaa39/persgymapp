@@ -1,0 +1,60 @@
+import csv
+import pandas as pd
+from collections import OrderedDict
+
+# 英語と日本語の対応表
+translation = {
+    "ID": "会員番号",
+    "Name": "お名前",
+    "Age": "年齢",
+    "Sex": "性別",
+    "male": "男性",
+    "female": "女性",
+    "Height": "身長",
+    "Weight": "体重",
+    "Medical Condition": "持病",
+    "high-blood-pressure": "高血圧",
+    "diabetes": "糖尿病",
+    "chronic-respiratory-failure": "慢性呼吸不全",
+    "polypharmacy": "多剤を服用している",
+    "low-back-pain": "腰痛持ち",
+    "rheumatoid-arthritis": "関節リウマチ",
+    "shoulder-tendon-surgery": "肩の腱板縫合手術歴がある",
+    "artificial-joint-or-femur-surgery": "人工関節または大腿骨の骨切り術後",
+    "other-diseases": "その他に持病がある方",
+    "Beauty Goal": "美容目標",
+    "weight-loss": "ダイエット",
+    "skin-care": "スキンケア",
+    "Training Goal": "トレーニング目標",
+    "muscle-building": "筋力アップ",
+    "flexibility": "柔軟性アップ",
+    "Available Time": "利用可能時間帯",
+    "morning": "午前",
+    "afternoon": "午後",
+    "evening": "夜",
+    "Contact Method": "連絡方法",
+    "phone": "電話",
+    "email": "メール",
+    "Phone Number": "電話番号",
+    "Email": "メールアドレス",
+    "Emergency Contact": "緊急連絡先",
+    "How did you know about the gym": "ジムを知った方法",
+    "flyers": "チラシ・新聞",
+    "friends": "友人・知人の紹介",
+    "social-media": "SNS・インターネット"
+}
+
+# CSVファイルからデータを読み込む
+df = pd.read_csv('customer_data.csv')
+
+# データの日本語化
+for key in df.columns:
+    jp_key = translation.get(key, key)
+    df.rename(columns={key: jp_key}, inplace=True)
+
+# 一部の項目の値も日本語化する必要がある
+for column in ["性別", "持病", "美容目標", "トレーニング目標", "利用可能時間帯", "連絡方法", "ジムを知った方法"]:
+    df[column] = df[column].map(translation)
+
+# 日本語化したデータをCSVファイルに書き込む
+df.to_csv('customer_data.csv', index=False, encoding="utf-8")
