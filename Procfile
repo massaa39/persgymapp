@@ -1,1 +1,1 @@
-web: gunicorn persgym_app
+"web: gunicorn pers_gym.wsgi" 

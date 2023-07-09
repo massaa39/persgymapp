@@ -2,7 +2,7 @@ def create_advice(age, beauty_goals, preferred_seniority, medical_history, train
     age = int(age)
     # アドバイス生成のロジックを実装
     advice = ""
-    if age >= 58:
+    if age >= 50:
         advice += "お客様向けの運動プランを提供し、安全な運動環境を整えます。"
 
     if medical_history == "yes":
