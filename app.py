@@ -3,10 +3,11 @@ A web application for generating advice based on user input.
 """
 
 import csv
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from advice_generator import create_advice
 
 app = Flask(__name__)
+app.secret_key = "persgym123456789"  # ここでシークレットキーを設定します
 
 def save_to_csv(data):
     """
@@ -58,15 +59,15 @@ def submit_form():
     save_to_csv(form_data)
 
     advice = create_advice(form_data["age"], form_data["beauty_goals"], form_data["preferred_seniority"], form_data["medical_history"], form_data["training_goals"], form_data["medical_conditions"])
-    advice = advice.replace(" ", "%20")
-    return redirect(url_for("show_advice", name=form_data["name"], advice=advice))
+    session['advice'] = advice  # adviceをセッション変数に保存します
+    return redirect(url_for("show_advice", name=form_data["name"]))  # adviceパラメータを削除します
 
-@app.route("/show_advice/<name>/<advice>")
-def show_advice(name, advice):
+@app.route("/show_advice/<name>")
+def show_advice(name):
     """
     Displays generated advice.
     """
-    advice = advice.replace("%20", " ")
+    advice = session.get('advice', 'No advice available')  # セッションからadviceを取得します
     return render_template("advice.html", name=name, advice=advice)
 
 if __name__ == "__main__":

@@ -38,7 +38,7 @@ def create_advice(age, beauty_goals, preferred_seniority, medical_history, train
         advice += "朝の運動は、新陳代謝を促進し、一日の活力を高める効果があります。運動後に栄養バランスの良い朝食を摂取しましょう。"
 
     elif preferred_seniority == "daytime":
-        advice += "昼間の運動は、仕事や家事の合間にリフレッシュする効果があります。適度な休憩を取り入れながら効率的に運動を行いましょう。"
+        advice += "日中の運動は、日常生活でのエネルギーを最大限に活用します。また、仕事や家事の合間にリフレッシュする効果があります。適度な休憩を取り入れながら効率的に運動を行いましょう。"
 
     elif preferred_seniority == "evening":
         advice += "夕方の運動は、1日のストレスを解消し、リラックス効果が期待できます。ただし、寝る前の運動は興奮状態を引き起こすことがあるため、就寝2時間前までに運動を終えるようにしましょう。"
